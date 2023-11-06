@@ -17,6 +17,9 @@ func main() {
 		will be passed, it makes more sense to put "launch10(c)" into a go routine. Without the go routine, we are trying to pass data with
 		no receiver ready and we deadlock waiting for a receiver. The go routine allows these functions to run concurrently using the first
 		concurrent function to launch all 10 other concurrent "anonymous" functions and the "main" go routine operates the receiver
+
+		On another note, the commented code below shows another option: to put wg.Wait() and close(c) into it's own go routine so that
+		the code can pass to the reciever and we will not close the channel until all data has been sent. either approach will work
 	*/
 
 	i := 0
