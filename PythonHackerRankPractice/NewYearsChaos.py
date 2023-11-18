@@ -46,6 +46,38 @@ def minimumBribes(q):
     
     print(bribeCount)
 
+def minimumBribes2(q):
+    n = len(q)
+    numSwaps = 0
+
+    for i in range(n):
+        if q[i] - i > 3:
+            # q[i] - i == 3 means i moved forward twice
+            print("Too chaotic")
+            return
+        
+        # to count bribes we count the number of elements to the
+        # left of i that is greater than q[i]
+        # but get timeout if we iterate all left sub-array (0:i-1) 
+        
+        # let k = index of left-most number > q[i] where k < i
+        # k is index to the left of q[i] on original sorted array
+        # Ex: [1, 2, 3, 4, 5] -> left-most possible number > 4 is
+        # 5 at index 2, so we only iterate starting at index 2
+        
+        k = q[i] - 2
+        
+        if q[i] == 1:
+            # we can't have k = -1 since its an index
+            k = 0
+        for j in range(k, i):
+            # we add a bribe for every number > q[i]
+            if q[j] > q[i]:
+                numSwaps += 1
+
+    print(numSwaps)
+    return
+
 
 if __name__ == '__main__':
     #q1 = [1,2,3,5,4,6,7,8] #1 bribe
@@ -54,3 +86,6 @@ if __name__ == '__main__':
     q2 = [2,5,1,3,4]
     minimumBribes(q1)
     minimumBribes(q2)
+    minimumBribes2(q1)
+    minimumBribes2(q2)
+    
